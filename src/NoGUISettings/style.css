@@ -3,10 +3,17 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 0.6;
+}
+
+.labelInfo {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-padding: 5;
+    -fx-spacing: 5;
 }
 
 .label-bright {
@@ -21,6 +28,26 @@
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 1;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.vbox {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-background-color: transparent;
+}
+
+.hbox {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-padding: 15;
+    -fx-spacing: 10;
 }
 
 .table-view {
@@ -88,11 +115,6 @@
     -fx-background-color: black;
 }
 
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-}
-
 /*
  * Push Button в стиле Metro
  * Автор: Pedro Duque Vieira
@@ -140,18 +162,4 @@
 
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color,30%);
-}
-
-.label{
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #ffffff;
-}
-
-.vbox {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-background-color: #2f4f4f;
-    -fx-padding: 15;
-    -fx-spacing: 10;
 }
