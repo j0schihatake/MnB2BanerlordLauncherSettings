@@ -2,23 +2,10 @@ package NoGUISettings;
 
 import NoGUISettings.TemplateComponents.ModuleSettings;
 import NoGUISettings.TemplateComponents.Parameter;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Bounds;
-import javafx.geometry.Orientation;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-
+import javafx.scene.layout.*;
 import java.util.ArrayList;
 
 public class GUICompiler {
@@ -41,12 +28,8 @@ public class GUICompiler {
 
     public Group createGUI(){
 
-        Pane testPanel = new Pane();
-
-        int scroolSpeed = 10;
-
         // Test
-
+        ///*
         int count =3;
 
         int parameterCount = 13;
@@ -80,20 +63,24 @@ public class GUICompiler {
 
             allModules.add(testSettings);
         }
+        //*/
+
 
         Group resultGroup = new Group();
 
         resultGroup.getStylesheets().add(Main.stylesheet);
 
-        Image background = new Image("/NoGUISettings/TemplateComponents/background.jpeg");
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/NoGUISettings/TemplateComponents/background.jpeg",32,32,false,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
-        ImageView view = new ImageView(background);
-
-        resultGroup.getChildren().addAll(view);
+        Background background = new Background(backgroundImage);
 
         vBox = new VBox();
 
-        vBox.getStyleClass().add("vbox");
+        vBox.getStyleClass().add("vboxGray");
+
+        vBox.setBackground(background);
+
+        vBox.setFillWidth(true);
 
         //-----------------------------------------Вывод информации о модулях:
 
@@ -103,13 +90,21 @@ public class GUICompiler {
 
             moduleSettings.getStyleClass().add("vbox");
 
-            Label ModNameLabel = new Label("ModName: " + settings.moduleName);
+            Label modNameLabel = new Label("ModName: " + settings.moduleName);
 
-            Label ModDescriptionLabel = new Label("ModDescription: " + settings.description);
+            modNameLabel.getStyleClass().add("label-header");
 
-            moduleSettings.getChildren().add(ModNameLabel);
+            Label modDescriptionLabel = new Label("ModDescription: " + settings.description);
 
-            moduleSettings.getChildren().add(ModDescriptionLabel);
+            modDescriptionLabel.setMaxWidth(700);
+
+            modDescriptionLabel.setWrapText(true);
+
+            modDescriptionLabel.setMaxHeight(9000);
+
+            moduleSettings.getChildren().add(modNameLabel);
+
+            moduleSettings.getChildren().add(modDescriptionLabel);
 
             for (Parameter parameter: settings.parameters) {
 
@@ -175,34 +170,5 @@ public class GUICompiler {
         resultGroup.getChildren().addAll(vBox);
 
         return resultGroup;
-    }
-
-    public void addMouseScrolling() {
-        if(vBox == null){
-            return;
-        }
-        vBox.setOnScroll((ScrollEvent event) -> {
-            double deltaY = event.getDeltaY();
-
-            if(deltaY > 0 && vBox.getLayoutY() < 0) {
-                vBox.setLayoutY(vBox.getLayoutY() + deltaY);
-            }else if(deltaY < 0){
-                vBox.setLayoutY(vBox.getLayoutY() + deltaY);
-            }
-
-            int calculateHeight = 0;
-
-            for (Node node :vBox.getChildren()) {
-                calculateHeight += node.getBoundsInLocal().getHeight();
-                //calculateHeight -= vBox.getLayoutBounds().getHeight();
-                calculateHeight -= vBox.getSpacing();
-            }
-            System.out.println("calculateHeight = " + vBox.getLayoutBounds().getHeight());
-
-            //layoutY+ translateY
-            System.out.println("calculateHeight = " + calculateHeight);
-
-            System.out.println("layoutY = " + vBox.getLayoutY());
-        });
     }
 }

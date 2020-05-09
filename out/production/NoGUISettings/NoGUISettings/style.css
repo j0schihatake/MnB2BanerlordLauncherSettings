@@ -2,7 +2,16 @@
     -fx-background-color: #1d1d1d;
 }
 
+.root {
+    -fx-background-image: url("/NoGUISettings/TemplateComponents/background.jpeg");
+}
+
 .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.labelWhite {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
 }
@@ -33,6 +42,14 @@
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
+}
+
+.vboxGray {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-background-color: #808080;
 }
 
 .vbox {
