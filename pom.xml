@@ -12,14 +12,14 @@
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
         <jdkVersion>1.8</jdkVersion>
-        <product.title>MnB2Bannerlord NoGUISettings</product.title>
+        <product.title>MnB2BannerlordNoGUISettings</product.title>
         <product.company>byJ0schi</product.company>
         <exeFileName>NoGUISettings</exeFileName>
         <product.java.version>1.8</product.java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <exeFileDescription>Программа для просмотра конфигурационных файлов модов к Bannerlord 2</exeFileDescription>
+        <exeFileDescription>Программа</exeFileDescription>
     </properties>
 
     <repositories>
@@ -46,6 +46,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -61,7 +62,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx-maven-plugin.version}</version>
                 <configuration>
-                    <mainClass>Main</mainClass>
+                    <mainClass>NoGUISettings.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -69,7 +70,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>NoGUISettings.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -90,34 +91,32 @@
             <plugin>
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
                 <artifactId>launch4j-maven-plugin</artifactId>
-                <version>1.7.21</version>
                 <executions>
                     <execution>
-                        <id>l4j-clui</id>
+                        <id>plugin-loader</id>
                         <phase>package</phase>
                         <goals>
                             <goal>launch4j</goal>
                         </goals>
                         <configuration>
                             <headerType>gui</headerType>
-                            <outfile>target/${exeFileName}.exe</outfile>
-                            <jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
+                            <outfile>${exeFileName}.exe</outfile>
+                            <jar>target/${project.artifactId}.jar</jar>
                             <errTitle>${product.title}</errTitle>
                             <icon>${project.basedir}/src/main/resources/logo.ico</icon>
                             <classPath>
-                                <mainClass>Main</mainClass>
+                                <mainClass>NoGUISettings.Main</mainClass>
                                 <addDependencies>true</addDependencies>
                                 <preCp>anything</preCp>
                             </classPath>
                             <jre>
-                                <path>D:\Develop\Java\jdk1.8.0_181\jre</path>
                                 <minVersion>${jdkVersion}.0</minVersion>
                             </jre>
                             <versionInfo>
                                 <fileVersion>${project.version}.0</fileVersion>
                                 <txtFileVersion>${project.version}</txtFileVersion>
-                                <fileDescription>${exeFileDescription}</fileDescription>
-                                <copyright>Copyright © 2018 ${product.company}</copyright>
+                                <fileDescription>Swing application</fileDescription>
+                                <copyright>Copyright © 2011 ${product.company}</copyright>
                                 <productVersion>${project.version}.0</productVersion>
                                 <txtProductVersion>${project.version}</txtProductVersion>
                                 <companyName>${product.company}</companyName>
@@ -130,10 +129,5 @@
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-            </resource>
-        </resources>
     </build>
 </project>
