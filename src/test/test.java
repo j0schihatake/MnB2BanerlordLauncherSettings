@@ -101,6 +101,149 @@ launch4j { headerType="gui" mainClassName = <provide your main class name> outfi
 
 Все хорошо, но я столкнулся со следующими ограничениями: путь к .exe файлу не должен содержать русских букв. С английскими буквами и пробелами в пути у меня все заработало. Если хотим чтобы наше творение запускалось на всех windows нужно использовать 32 битный jdk, в моем случае это jdk-8u40-windows-i586.exe Полученный exe-шник должен полностью работать на windows начиная с vista, у меня под windows 7 все работает. В windows xp exe-шники из моих проектов тоже запускались, но не во всех проектах все работало.
 
-                            <icon>D:\Develop\Разработка C#\MountAndBlade\New\NoGUISettings\src\main\resources\logo.ico</icon>
+<icon>D:\Develop\Разработка C#\MountAndBlade\New\NoGUISettings\src\main\resources\logo.ico</icon>
 
+
+
+
+-----------------------------------------------------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>vexel</groupId>
+    <artifactId>vExel</artifactId>
+    <version>0.0.1</version>
+
+    <properties>
+        <javafx-maven-plugin.version>8.8.3</javafx-maven-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+        <jdkVersion>1.8</jdkVersion>
+        <product.title>vExel_XSL</product.title>
+        <product.company>ПАО "Сбербанк"</product.company>
+        <exeFileName>vExel</exeFileName>
+        <project.java.version>1.8</project.java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <exeFileDescription>Программа для автоматического наполнения XSL фалов значениями</exeFileDescription>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zenjava</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>8.8.3</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${jdkVersion}</source>
+                    <target>${jdkVersion}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx-maven-plugin.version}</version>
+                <configuration>
+                    <mainClass>Main</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>true</appendAssemblyId>
+                </configuration>
+                <executions>
+                <execution>
+                    <id>make-assembly</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.21</version>
+                <executions>
+                    <execution>
+                        <id>l4j-clui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>target/${exeFileName}.exe</outfile>
+                            <jar>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</jar>
+                            <errTitle>${product.title}</errTitle>
+                            <icon>${project.basedir}/src/main/resources/logo.ico</icon>
+                            <classPath>
+                                <mainClass>Main</mainClass>
+                                <addDependencies>true</addDependencies>
+                                <preCp>anything</preCp>
+                            </classPath>
+                            <jre>
+                                <path>C:\Users\Donskoy-VO\development\jdk1.8.0_102\jre</path>
+                                <minVersion>${jdkVersion}.0</minVersion>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>${project.version}.0</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>${exeFileDescription}</fileDescription>
+                                <copyright>Copyright © 2018 ${product.company}</copyright>
+                                <productVersion>${project.version}.0</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
+                                <companyName>${product.company}</companyName>
+                                <productName>${product.title}</productName>
+                                <internalName>${exeFileName}</internalName>
+                                <originalFilename>${exeFileName}.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
+</project>
  */
+
