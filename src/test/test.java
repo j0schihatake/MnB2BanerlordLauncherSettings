@@ -75,4 +75,31 @@
         </plugin>
     </plugins>
 </build>
+
+
+launch4j { headerType="gui" mainClassName = <provide your main class name> outfile = "Burj2.exe" icon = "${projectDir}/src/main/resources/images/icon.ico" jar = '../libs/Master_Mode_System_Config-all-1.0-SNAPSHOT.jar' } тип launch4j { headerType="gui" mainClassName = <provide your main class name> outfile = "Burj2.exe" icon = "${projectDir}/src/main/resources/images/icon.ico" jar = '../libs/Master_Mode_System_Config-all-1.0-SNAPSHOT.jar' }
+
+В IDEA можно сделать .exe для JavaFX приложения, для этого идем File — Project Structure.
+
+В открывшемся окне слева выбираем вкладку Artifacts
+
+Для добавления нового артефакта жмем зеленый плюс +
+
+В выпадающем списке выбираем JavaFX Application
+
+В правой части окна переходим на вкладку JavaFX
+
+Заполняем поля. Можно заполнить только Application Class указав там класс с методом main
+
+И самое главное в Native bundle выбираем all
+
+И в верхней части этого окна ставим галочку Build on make
+
+И еще выше задаем Output directory
+
+Тогда при запуске приложения в папке указанной в Output directory создастся помимо прочего пака bundles, в которой будет лежать nameProjects.exe файл и папка с именем проекта. nameProjects.exe — это файл установщик, но его я не пробовал использовать. Папка с именем проекта — это папка содержащая среду исполнения java и .exe файл с именем проекта. Эту папку можно передавать пользователям. При этом им не нужно иметь установленную java на своих windows.
+
+Все хорошо, но я столкнулся со следующими ограничениями: путь к .exe файлу не должен содержать русских букв. С английскими буквами и пробелами в пути у меня все заработало. Если хотим чтобы наше творение запускалось на всех windows нужно использовать 32 битный jdk, в моем случае это jdk-8u40-windows-i586.exe Полученный exe-шник должен полностью работать на windows начиная с vista, у меня под windows 7 все работает. В windows xp exe-шники из моих проектов тоже запускались, но не во всех проектах все работало.
+
+
  */

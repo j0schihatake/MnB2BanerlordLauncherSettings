@@ -2,75 +2,62 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <groupId>MnB2Bannerlords</groupId>
-    <artifactId>NoGUISettings</artifactId>
+    <groupId>MnB2</groupId>
+    <artifactId>NoGUI</artifactId>
     <version>0.0.1</version>
 
-    <properties>
-        <javafx-maven-plugin.version>8.8.3</javafx-maven-plugin.version>
-        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
-        <jdkVersion>1.8</jdkVersion>
-        <product.title>MnB2BannerlordNoGUISettings</product.title>
-        <product.company>byJ0schi</product.company>
-        <exeFileName>NoGUISettings</exeFileName>
-        <product.java.version>1.8</product.java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <exeFileDescription>Программа</exeFileDescription>
-    </properties>
-
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.zenjava/javafx-maven-plugin -->
-        <dependency>
-            <groupId>com.zenjava</groupId>
-            <artifactId>javafx-maven-plugin</artifactId>
-            <version>8.8.3</version>
-        </dependency>
-    </dependencies>
-
     <build>
-        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${jdkVersion}</source>
-                    <target>${jdkVersion}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>${javafx-maven-plugin.version}</version>
-                <configuration>
-                    <mainClass>NoGUISettings.Main</mainClass>
-                </configuration>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.24</version>
+                <executions>
+                    <execution>
+                        <id>NoGUISettings</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>target/NoGUISettings.exe</outfile>
+                            <jar>target/NoGUI-0.0.1.jar</jar>
+                            <errTitle>NoGUISettings</errTitle>
+                            <icon>D:\Develop\Разработка C#\MountAndBlade\New\NoGUISettings\src\main\resources\logo.ico</icon>
+                            <jre>
+                                <path>C:\Program Files\Java\jre1.8.0_241</path>
+                                <minVersion>1.8.0</minVersion>
+                            </jre>
+                            <classPath>
+                                <mainClass>Main</mainClass>
+                                <addDependencies>true</addDependencies>
+                                <preCp>anything</preCp>
+                            </classPath>
+                            <versionInfo>
+                                <fileVersion>1.0.0.0</fileVersion>
+                                <txtFileVersion>1</txtFileVersion>
+                                <fileDescription>NoGUI</fileDescription>
+                                <copyright>Copyright © 2020 J0schi</copyright>
+                                <productVersion>1.0.0.0</productVersion>
+                                <txtProductVersion>1</txtProductVersion>
+                                <companyName>byJ0schi</companyName>
+                                <productName>NoGUI</productName>
+                                <internalName>NoGUI</internalName>
+                                <originalFilename>NoGUISettings.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>NoGUISettings.Main</mainClass>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -89,44 +76,12 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.akathist.maven.plugins.launch4j</groupId>
-                <artifactId>launch4j-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>plugin-loader</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>launch4j</goal>
-                        </goals>
-                        <configuration>
-                            <headerType>gui</headerType>
-                            <outfile>${exeFileName}.exe</outfile>
-                            <jar>target/${project.artifactId}.jar</jar>
-                            <errTitle>${product.title}</errTitle>
-                            <icon>${project.basedir}/src/main/resources/logo.ico</icon>
-                            <classPath>
-                                <mainClass>NoGUISettings.Main</mainClass>
-                                <addDependencies>true</addDependencies>
-                                <preCp>anything</preCp>
-                            </classPath>
-                            <jre>
-                                <minVersion>${jdkVersion}.0</minVersion>
-                            </jre>
-                            <versionInfo>
-                                <fileVersion>${project.version}.0</fileVersion>
-                                <txtFileVersion>${project.version}</txtFileVersion>
-                                <fileDescription>Swing application</fileDescription>
-                                <copyright>Copyright © 2011 ${product.company}</copyright>
-                                <productVersion>${project.version}.0</productVersion>
-                                <txtProductVersion>${project.version}</txtProductVersion>
-                                <companyName>${product.company}</companyName>
-                                <productName>${product.title}</productName>
-                                <internalName>${exeFileName}</internalName>
-                                <originalFilename>${exeFileName}.exe</originalFilename>
-                            </versionInfo>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
