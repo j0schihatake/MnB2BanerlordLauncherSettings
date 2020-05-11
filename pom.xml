@@ -26,13 +26,12 @@
                             <outfile>target/NoGUISettings.exe</outfile>
                             <jar>target/NoGUI-0.0.1.jar</jar>
                             <errTitle>NoGUISettings</errTitle>
-                            <icon>D:\Develop\Разработка C#\MountAndBlade\New\NoGUISettings\src\main\resources\logo.ico</icon>
                             <jre>
-                                <path>C:\Program Files\Java\jre1.8.0_241</path>
+                                <path>C:\Program Files\Java\jre1.8.0_251</path>
                                 <minVersion>1.8.0</minVersion>
                             </jre>
                             <classPath>
-                                <mainClass>Main</mainClass>
+                                <mainClass>NoGUI</mainClass>
                                 <addDependencies>true</addDependencies>
                                 <preCp>anything</preCp>
                             </classPath>
@@ -57,7 +56,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>NoGUI</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

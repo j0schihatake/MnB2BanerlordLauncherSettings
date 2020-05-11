@@ -101,5 +101,6 @@ launch4j { headerType="gui" mainClassName = <provide your main class name> outfi
 
 Все хорошо, но я столкнулся со следующими ограничениями: путь к .exe файлу не должен содержать русских букв. С английскими буквами и пробелами в пути у меня все заработало. Если хотим чтобы наше творение запускалось на всех windows нужно использовать 32 битный jdk, в моем случае это jdk-8u40-windows-i586.exe Полученный exe-шник должен полностью работать на windows начиная с vista, у меня под windows 7 все работает. В windows xp exe-шники из моих проектов тоже запускались, но не во всех проектах все работало.
 
+                            <icon>D:\Develop\Разработка C#\MountAndBlade\New\NoGUISettings\src\main\resources\logo.ico</icon>
 
  */
